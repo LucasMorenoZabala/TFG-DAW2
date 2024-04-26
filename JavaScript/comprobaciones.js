@@ -26,52 +26,52 @@ function mostrarError(inputElement, errorMessage) {
   if (!errorElement) {
     var errorDiv = document.createElement("div");
     errorDiv.classList.add("error-message");
-    inputElement.parentElement.appendChild(errorDiv);
+    inputElement.parentNode.appendChild(errorDiv);
+    errorElement = errorDiv;
   }
   errorElement.textContent = errorMessage;
-  inputElement.style.background = "red";
+  errorElement.style.color = "red";
 }
 
 function esconderError(inputElement) {
   var errorElement = inputElement.nextElementSibling;
   if (errorElement) {
     errorElement.textContent = "";
-    inputElement.style.background = "";
   }
 }
 
-InputUsuario.addEventListener("keyup", function (event) {
-  var usuario = event.target.value;
+InputUsuario.addEventListener("blur", function () {
+  var usuario = this.value;
   if (validateUsername(usuario)) {
-    esconderError(InputUsuario);
-    inputElement.style.backgroundColor = "green";
+    esconderError(this);
+    this.style.backgroundColor = "green";
   } else {
     mostrarError(
-      InputUsuario,
+      this,
       "El nombre de usuario debe tener entre 4 y 20 caracteres y puede contener letras, números, guiones bajos, puntos y guiones."
     );
   }
 });
 
-InputClave.addEventListener("keyup", function (event) {
-  var clave = event.target.value;
+InputClave.addEventListener("blur", function () {
+  var clave = this.value;
   if (validatePassword(clave)) {
-    esconderError(InputClave);
-    inputElement.style.backgroundColor = "green";
+    esconderError(this);
+    this.style.backgroundColor = "green";
   } else {
     mostrarError(
-      InputClave,
+      this,
       "La contraseña debe tener al menos 8 caracteres, incluyendo una minúscula, una mayúscula, un número y un carácter especial (@, $, !, %, *, &, etc.)."
     );
   }
 });
 
-InputEmail.addEventListener("keyup", function (event) {
-  var email = event.target.value;
+InputEmail.addEventListener("blur", function () {
+  var email = this.value;
   if (validateEmail(email)) {
-    esconderError(InputEmail);
-    inputElement.style.backgroundColor = "green";
+    esconderError(this);
+    this.style.backgroundColor = "green";
   } else {
-    mostrarError(InputEmail, "El formato del correo electrónico no es válido.");
+    mostrarError(this, "El formato del correo electrónico no es válido.");
   }
 });

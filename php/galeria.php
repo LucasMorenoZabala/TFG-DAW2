@@ -26,8 +26,8 @@ if ($sql->execute()) {
     <link rel="stylesheet" href="../css/galeria.css" type="text/css">
 </head>
 
-<div class="image">
-    <section class="background-image1">
+<body>
+    <div class="image">
         <div class="fakeHeader">
             <div class="LogoDiv">
                 <a href="index.php"><img src="../img/LOGO CAFE COPAS TRANSPARENTE.png" alt="Logo del bar 41100-Café&Copas"></a>
@@ -46,46 +46,51 @@ if ($sql->execute()) {
                 <a href="./trabajaConNosotros.php">Trabaja con nosotros</a>
             </div>
         </div>
-    </section>
-</div>
+
+    </div>
 
 
 
-<div class="full-img" id="fullImgBox">
-    <img src="../img/fondo2.jpg" id="fullImg">
-    <span onclick="closeFullImg()">X</span>
-</div>
+    <!-- <div class="full-img" id="fullImgBox">
+        <img src="../img/fondo2.jpg" id="fullImg">
+        <span onclick="closeFullImg()">X</span>
+    </div>-->
 
 
 
 
-<div class="img-gallery">
-    <?php
+    <div class="img-gallery">
+        <?php
 
-    if ($resultado->num_rows > 0) {
-        while ($filas = $resultado->fetch_assoc()) {
-            echo '<div class="full-img" id="fullImgBox">
-            <img src="' . $filas['foto'] . '" id="fullImg">
-            <span onclick="openFullImg(this.src)"></span>
+        if ($resultado->num_rows > 0) {
+            while ($filas = $resultado->fetch_assoc()) {
+                echo '<div class="full-img" id="fullImgBox">
+            <img src="' . $filas['foto'] . '" id="fullImg" onclick="openFullImg(this.src)">
             </div>';
+            }
+            $sql->close();
         }
-        $sql->close();
-    }
-    ?>
-</div>
+        ?>
+    </div>
 
-<script>
-    var fullImgBox = document.getElementById("fullImgBox");
-    var fullImg = document.getElementById("fullImg");
+    <div class="fotoGrande" style="display: flex;">
+        <img src="../img/galeria1.jpg" alt="">
+    </div>
 
-    function openFullImg(picture) {
-        fullImgBox.style.display = "flex";
-        fullImg.src = picture;
-    }
 
-    function closeFullImg() {
-        fullImgBox.style.display = "none";
-    }
-</script>
+    <script>
+        var fullImgBox = document.getElementById("fullImgBox");
+        var fullImg = document.getElementById("fullImg");
+
+        function openFullImg(picture) {
+            fullImgBox.style.display = "flex";
+            fullImg.src = picture;
+        }
+
+        function closeFullImg() {
+            fullImgBox.style.display = "none";
+        }
+    </script>
+</body>
 
 </html>

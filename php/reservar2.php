@@ -9,44 +9,31 @@ $conexion = conectarse($servidor, $usuarioservidor, $claveservidor, $bbdd, $puer
 
 if (isset($_GET['date'])) {
     $date = $_GET['date'];
-    $sql = $conexion->prepare('select * from reservas WHERE fecha = ?');
-    $sql->bind_param('s', $date);
-    $reservas = array();
-    if ($sql->execute()) {
-        $resultado = $sql->get_result();
-        if ($resultado->num_rows > 0) {
-            while ($filas = $resultado->fetch_assoc()) {
-                $reservas[] = $filas['fecha'];
-            }
-
-            $sql->close();
-        }
-    }
 }
 
 if (isset($_POST['submit'])) {
     $usuario = $_POST['usuario'];
     $email = $_POST['email'];
     $idReservado = $_GET['id_reservado'];
-    $sql = $conexion->prepare('select * from reservas WHERE fecha = ?');
-    $sql->bind_param('s', $date);
-    $reservas = array();
-    if ($sql->execute()) {
-        $resultado = $sql->get_result();
-        if ($resultado->num_rows > 0) {
-            $msg = "<div class = 'alert alert-danger'>Ya está reservado</div>";
-        } else {
-            $sql = $conexion->prepare("INSERT INTO reservas (nombre, email, fecha, id_reservado) VALUES (?, ? , ?, ?)");
-            $sql->bind_param('sssi', $usuario, $email, $date, $idReservado);
-            $sql->execute();
-            $sql->close();
-            $conexion->close();
+    $sql = $conexion->prepare("INSERT INTO reservas (nombre, email, fecha, id_reservado) VALUES (?, ? , ?, ?)");
+    $sql->bind_param('sssi', $usuario, $email, $date, $idReservado);
+    $sql->execute();
+    $msg = "<div class = 'alert alert-success'>Reservado correctamente</div>";
 
 
-            header("Location: ./calendarioReservas.php");
-        }
-    }
+    echo $msg;
+    echo "    <script>
+    setTimeout(function() {
+        window.location.href = './calendarioReservas.php';
+    }, 2000)
+</script>";
+    $sql->close();
+    $conexion->close();
 }
+
+
+
+
 
 
 ?>
@@ -207,26 +194,20 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <div class="form-group">
-                        <input type="hidden" class="form-control" name="date" value="'.<?php $date ?>.'">
+                        <input required type="hidden" class="form-control" name="subject" value="Reserva confirmada.">
                     </div>
 
-
+                    <div class="form-group">
+                        <input required type="hidden" class="form-control" name="message" value='Tu reserva ha sido confirmada para el dia ".$date.".'>
+                    </div>
 
                     <button class="btn btn-primary" type="submit" name="submit">Enviar</button>
 
 
                 </form>
             </div>
-
-
         </div>
-
     </div>
-
-
-
-
-
 </body>
 
 </html>

@@ -45,6 +45,11 @@ function calendario($month, $year, $conexion, $reservado)
         }
     }
 
+    function borrarReserva($conexion, $idreserva)
+    {
+    }
+
+
 
     $daysOfWeek = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
     $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year);
@@ -115,6 +120,8 @@ function calendario($month, $year, $conexion, $reservado)
         $today = $date == date('Y-m-d') ? "today" : "";
         if ($date < date('Y-m-d')) {
             $calendar .= "<td><h4>$currentDay</h4> <button class = 'btn btn-danger'>N/A</button>";
+        } elseif (in_array($date, $reservas)) {
+            $calendar .= "<td><h4>$currentDay</h4> <button class = 'btn btn-danger'>Ya está reservado</button>";
         } else {
             $calendar .= "<td class ='$today'><h4>$currentDay</h4> <a href= 'reservar2.php?date=" . $date . "&id_reservado=" . $primer_reservado . "' class = 'btn btn-success'>Reservar</a> ";
         }
@@ -200,6 +207,11 @@ function calendario($month, $year, $conexion, $reservado)
 
         .btn.btn-danger {
             background-color: #dc3545;
+            color: white;
+        }
+
+        .btn.btn-modificar {
+            background-color: rgb(255, 165, 0);
             color: white;
         }
 
@@ -301,22 +313,37 @@ function calendario($month, $year, $conexion, $reservado)
         </div>
     </div>
 
-    <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] == 1) {
+    <?php
+    if (isset($_SESSION['rol']) && $_SESSION['rol'] == 1) {
         $controla = false;
 
-        $stmt = $conexion->prepare("SELECT nombre, email, fecha from reservas");
+        $stmt = $conexion->prepare("SELECT * from reservas");
         $stmt->execute();
 
+        echo "<div class='adminReservas'>";
+        echo "<ul>";
 
-        echo "<div class='adminReservas'><ul>";
         $resultado2 = $stmt->get_result();
 
         while ($reg = $resultado2->fetch_assoc()) {
-            echo "<li>" . $reg['nombre'] . " con email " . $reg['email'] . ", ha reservado el " . $reg['fecha'] . "</li>";
+            echo "<li>" . $reg['nombre'] . " con email " . $reg['email'] . ", ha reservado el " . $reg['fecha'] . " ";
+
+
+            echo "<button class='btn btn-modificar' onclick='modificar(" . $reg['idreserva'] . ")'>Modificar reserva</button>";
+
+
+            echo "<button class='btn btn-danger' onclick='borrar(" . $reg['idreserva'] . ")'>Borrar reserva</button>";
+
+            echo "</li>";
         }
 
-        echo " </ul></div>";
-    } ?>
+        echo "</ul>";
+
+        echo "</div>";
+    }
+    ?>
+
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -326,6 +353,35 @@ function calendario($month, $year, $conexion, $reservado)
         });
 
         $("#reservado_select option[value='<?php echo $reservado ?>']").attr('selected', 'selected');
+
+
+        function borrar(idreserva) {
+            if (confirm("¿Estás seguro de que quieres eliminar esta reserva?")) {
+                fetch('./borrarReserva.php?id=' + idreserva, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            idreserva: idreserva
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('No se ha podido eliminar la reserva.');
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        alert(data);
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Ha habido un error al intentar borrar la reserva.');
+                    });
+            }
+        }
     </script>
 
 </body>
