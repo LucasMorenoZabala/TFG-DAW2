@@ -1,0 +1,126 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.fakeHeader{
+    height: 120px;
+    width: auto;
+    display: flex; 
+    justify-content: space-between; 
+    padding: 0 20px; 
+   background: #fdfdfd;
+}
+
+.LogoDiv {
+    display: flex;
+    align-items: center;
+}
+
+.LogoDiv img{
+    height: 80px;
+}
+
+.anchors{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.anchors a{
+    color: #89CFF0;
+    font-family: 'Playfair', serif;
+    padding: 10px 25px;
+    margin: 10px;
+    border: 1px solid #89CFF0;
+    text-decoration: none;
+    border-radius: 5px 5px 20px 5px;
+}
+
+.anchors a:hover {
+    font-weight: bold; 
+    background-color: #0C2C4E;
+    transition-duration:1s ;
+}
+
+.btn-salir{
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #dc3545; 
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-salir:hover {
+    background-color: #c82333; 
+}
+
+.about-section{
+    background: url(../img/fotoConocenos2.jpg) no-repeat left;
+    background-size: 58%;
+    background-color: #fdfdfd;
+    overflow: hidden;
+    padding: 100px 0;
+}
+
+.inner-container{
+    width: 65%;
+    float: right;
+    background-color: #fdfdfd;
+    padding: 150px;
+    background: #545454;
+}
+
+.inner-container h1{
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: 900;
+    color: #89CFF0;
+}
+
+.text{
+    font-size: 20px;
+    color: #89CFF0;
+    line-height: 20px;
+    text-align: justify;
+    margin-bottom: 40px;
+}
+
+@media screen and (max-width:1200px){
+    .inner-container{
+        padding: 80px;
+    }
+}
+
+@media screen and (max-width:1000px){
+    .about-section{
+        background-size: 100%;
+        padding: 100px 40px;
+    }
+    
+    .inner-container{
+        padding: 80px;
+    }
+}
+
+@media screen and (max-width:600px){
+    .about-section{
+       padding: 0;
+    }
+    
+    .inner-container{
+        padding: 60px;
+    }
+}

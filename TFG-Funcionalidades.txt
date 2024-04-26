@@ -1,0 +1,25 @@
+- Funcionalidades TFG:
+	- Registrarse (Google, Twitter o Instagram)
+	- Recupera tu contraseña
+	- Valorar/Reseñas
+	- Contactar con nosotros (Vía Gmail)
+	- Trabaja con nosotros (Subir archivo)
+	- SuperYo (Para modificar mesas, precios, nombres,etc)
+	- Deslogearse
+	- Reservar (Mesas)
+	- Cookies (No es funcionalidad pero no se me puede olvidar)
+	- * Regalar una reserva a otra persona (Para quién es la reserva, gmail de esa persona, el nombre, la fecha en la cuál quieres que le llegue ese correo y el mensaje que quieres que le llegue)
+
+- Páginas TFG:
+	- Inicio de sesión
+	- Registro
+	- Recuperar contraseña
+	- Trabajar con nosotros
+	- Reservas -> Valorar saldría después de haber reservado una mesa
+	- *Regalar
+	- Contacta con nosotros
+	- Carta (Bebidas y precios)
+	- Sobre nosotros
+
+
+
