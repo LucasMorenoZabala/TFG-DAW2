@@ -45,10 +45,21 @@ function calendario($month, $year, $conexion, $reservado)
         }
     }
 
-    function borrarReserva($conexion, $idreserva)
-    {
-    }
 
+    if (isset($_GET['idreserva'])) {
+        $idreserva = $_GET['idreserva'];
+
+        $borrar = $conexion->prepare('DELETE FROM reservas WHERE idreserva = ?');
+        $borrar->bind_param('i', $idreserva);
+
+        if ($borrar->execute()) {
+            header('Location: ' . $_SERVER['PHP_SELF']);
+            exit;
+        } else {
+            echo 'Ha habido un problema al eliminar la reserva';
+        }
+        $borrar->close();
+    }
 
 
     $daysOfWeek = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
@@ -353,32 +364,26 @@ function calendario($month, $year, $conexion, $reservado)
         });
 
         $("#reservado_select option[value='<?php echo $reservado ?>']").attr('selected', 'selected');
+    </script>
 
-
+    <script>
         function borrar(idreserva) {
-            if (confirm("¿Estás seguro de que quieres eliminar esta reserva?")) {
-                fetch('./borrarReserva.php?id=' + idreserva, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            idreserva: idreserva
-                        })
+            if (confirm("¿Estás seguro de querer borrar esta reserva?")) {
+                fetch('<?php echo $_SERVER['PHP_SELF'] ?>?idreserva=' + idreserva, {
+                        method: "GET"
                     })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('No se ha podido eliminar la reserva.');
+                    .then(Response => {
+                        if (!Response.ok) {
+                            throw new Error('Ha habido un problema al eliminar la reserva.')
                         }
-                        return response.text();
+                        return Response.text();
                     })
                     .then(data => {
-                        alert(data);
                         location.reload();
                     })
                     .catch(error => {
-                        console.error('Error:', error);
-                        alert('Ha habido un error al intentar borrar la reserva.');
+                        console.error('Error: ', error);
+                        alert('Ha habido otro problema al eliminar la reserva.')
                     });
             }
         }
