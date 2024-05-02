@@ -10,7 +10,7 @@ $clave = $_POST['clave'];
 // Crear conexión
 $conexion = conectarse($servidor, $usuarioservidor, $claveservidor, $bbdd, $puerto);
 
-// Preparar el string que contendró la instrucción SQL
+// Preparar el string que contendrá la instrucción SQL
 $sql = 'SELECT * FROM usuarios WHERE usuario="' . $usuario . '" AND clave="' . $clave . '";';
 
 // Enviar la consulta al servidor MySQL a través de la conexión creada, y almacenar resultado en una variable
@@ -21,8 +21,8 @@ $consulta = mysqli_query($conexion, $sql);
 // Si hay usuario (hay registros en la consulta recibida), redireccionamos a portada.php
 $cuantos = mysqli_num_rows($consulta); // Almacenamos en $cuantos la cantidad de filas recogidas en la consulta
 if ($cuantos == 0) {
-
-    header('Location: ./login.php'); // Al no haber usuario recogido, la identificación no es correcta. Redireccionamos a index.php
+    $error = "El usuario no existe o se ha equivocado en alguno de los dos campos.";
+    header('Location: ./login.php?error=' . urlencode($error)); // Al no haber usuario recogido, la identificación no es correcta. Redireccionamos a index.php
 } else {
     $reg = mysqli_fetch_array($consulta); // Almacenamos en $reg el array con los datos del usuario que están en la consulta
     $_SESSION['usuario'] = $usuario; // Creamos la variable de sesión 'usuario' para que sea accesible en todas las páginas en las que se inicie sesión.

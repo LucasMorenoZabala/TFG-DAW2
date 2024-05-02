@@ -61,6 +61,27 @@ function calendario($month, $year, $conexion, $reservado)
         $borrar->close();
     }
 
+    if (isset($_POST['idreserva'], $_POST['nueva_fecha'])) {
+        $idreserva = $_POST['idreserva'];
+        $nuevaFecha = $_POST['nueva_fecha'];
+
+        modificarReserva($idreserva, $nuevaFecha, $conexion);
+    }
+
+    function modificarReserva($idreserva, $nuevaFecha, $conexion)
+    {
+        $modificar = $conexion->prepare('UPDATE reservas SET fecha = ? WHERE idreserva = ?');
+        $modificar->bind_param('si', $nuevaFecha, $idreserva);
+        $resultado = $modificar->execute();
+
+        if ($resultado) {
+            echo "La fecha se ha modificado correctamente.";
+        } else {
+            echo "Ha habido un problema al cambiar la fecha.";
+        }
+        $modificar->close();
+    }
+
 
     $daysOfWeek = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
     $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year);
@@ -226,6 +247,22 @@ function calendario($month, $year, $conexion, $reservado)
             color: white;
         }
 
+        .btn-salir {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #dc3545;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-salir:hover {
+            background-color: #c82333;
+        }
+
         .adminReservas {
             margin-top: 20px;
             padding: 10px;
@@ -293,9 +330,16 @@ function calendario($month, $year, $conexion, $reservado)
         </div>
 
         <div class="anchors">
-            <a href="./login.php">Inicia sesión</a>
+            <?php
+            if (isset($_SESSION['usuario'])) {
+                echo '<a href="./salir.php" class= "btn-salir">Salir de la sesión</a>';
+            } else {
+                echo '<a href="./login.php">Inicia sesión</a>';
+            }
+
+            ?>
             <a href="./carta.php">Carta</a>
-            <a href="#footer">Contacto</a>
+            <a href="./index.php#footer">Contacto</a>
             <a href="./trabajaConNosotros.php">Trabaja con nosotros</a>
         </div>
     </div>
@@ -354,8 +398,6 @@ function calendario($month, $year, $conexion, $reservado)
     }
     ?>
 
-
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
@@ -384,6 +426,35 @@ function calendario($month, $year, $conexion, $reservado)
                     .catch(error => {
                         console.error('Error: ', error);
                         alert('Ha habido otro problema al eliminar la reserva.')
+                    });
+            }
+        }
+    </script>
+
+    <script>
+        function modificar(idreserva) {
+            var nuevaFecha = prompt("Meta la nueva fecha de reserva (AAAA-MM-DD)");
+            if (nuevaFecha !== null) {
+                fetch('<?php echo $_SERVER['PHP_SELF'] ?>', {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/x-www-form-urlencoded'
+                        },
+                        body: 'idreserva=' + idreserva + '&nueva_fecha=' + nuevaFecha
+                    })
+                    .then(Response => {
+                        if (!Response.ok) {
+                            throw new Error('Ha habido un error al modificar la reserva.');
+                        }
+                        return Response.text();
+                    })
+                    .then(data => {
+                        alert(data); // Esto muestra el mensaje de éxito o error
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.log('Error: ', error);
+                        alert('Ha habido un problema modificando la reserva.');
                     });
             }
         }

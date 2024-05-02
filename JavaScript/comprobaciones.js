@@ -1,77 +1,50 @@
-var InputUsuario = document.getElementById("usuario");
-var InputClave = document.getElementById("clave");
-var InputEmail = document.getElementById("email");
+document
+  .getElementById("formularioRegistro")
+  .addEventListener("focusout", validaciones);
+function validaciones(event) {
+  var usuario = event.target.id;
 
-var RegexUsuario = /^[a-zA-Z0-9_.-]{4,20}$/;
-var RegexClave =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  switch (usuario) {
+    case usuario:
+      if (usuario.value.length < 5) {
+        mostrarError("El usuario debe tener al menos 5 caracteres.");
+        siEsInvalido(usuario);
+        return;
+      }
+      EsValido(usuario);
+      break;
 
-var RegexEmail =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    case email:
+      if (!email.value.includes("@")) {
+        mostrarError("El correo electrónico debe contener un @.");
+        siEsInvalido(email);
+        return;
+      }
+      EsValido(email);
+      break;
 
-function validateUsername(usuario) {
-  return RegexUsuario.test(usuario);
-}
+    case clave:
+      if (clave.value.length < 10) {
+        mostrarError("La contraseña debe tener al menos 10 caracteres.");
+        siEsInvalido(clave);
+        return;
+      }
+      EsValido(clave);
+      break;
 
-function validatePassword(clave) {
-  return RegexClave.test(clave);
-}
-
-function validateEmail(email) {
-  return RegexEmail.test(email);
-}
-
-function mostrarError(inputElement, errorMessage) {
-  var errorElement = inputElement.nextElementSibling;
-  if (!errorElement) {
-    var errorDiv = document.createElement("div");
-    errorDiv.classList.add("error-message");
-    inputElement.parentNode.appendChild(errorDiv);
-    errorElement = errorDiv;
-  }
-  errorElement.textContent = errorMessage;
-  errorElement.style.color = "red";
-}
-
-function esconderError(inputElement) {
-  var errorElement = inputElement.nextElementSibling;
-  if (errorElement) {
-    errorElement.textContent = "";
+    default:
+      alert("Todos los campos han sido correctamente enviados.");
   }
 }
 
-InputUsuario.addEventListener("blur", function () {
-  var usuario = this.value;
-  if (validateUsername(usuario)) {
-    esconderError(this);
-    this.style.backgroundColor = "green";
-  } else {
-    mostrarError(
-      this,
-      "El nombre de usuario debe tener entre 4 y 20 caracteres y puede contener letras, números, guiones bajos, puntos y guiones."
-    );
-  }
-});
+function siEsInvalido(inputElement) {
+  inputElement.style.border = "2px solid red";
+}
 
-InputClave.addEventListener("blur", function () {
-  var clave = this.value;
-  if (validatePassword(clave)) {
-    esconderError(this);
-    this.style.backgroundColor = "green";
-  } else {
-    mostrarError(
-      this,
-      "La contraseña debe tener al menos 8 caracteres, incluyendo una minúscula, una mayúscula, un número y un carácter especial (@, $, !, %, *, &, etc.)."
-    );
-  }
-});
+function EsValido(inputElement) {
+  inputElement.style.border = "2px solid green";
+}
 
-InputEmail.addEventListener("blur", function () {
-  var email = this.value;
-  if (validateEmail(email)) {
-    esconderError(this);
-    this.style.backgroundColor = "green";
-  } else {
-    mostrarError(this, "El formato del correo electrónico no es válido.");
-  }
-});
+function mostrarError(mensaje) {
+  alert(mensaje);
+}

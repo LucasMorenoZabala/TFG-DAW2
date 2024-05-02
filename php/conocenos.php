@@ -28,7 +28,7 @@
                     }
                     ?>
                     <a href="./carta.php">Carta</a>
-                    <a href="#footer">Contacto</a>
+                    <a href="./index.php#footer">Contacto</a>
                     <a href="./trabajaConNosotros.php">Trabaja con nosotros</a>
                 </div>
             </div>

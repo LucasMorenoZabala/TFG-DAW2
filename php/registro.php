@@ -4,8 +4,6 @@ include("config.php");
 include("lib.php");
 
 
-$mensaje = "";
-
 
 if (isset($_POST['usuario'], $_POST['email'], $_POST['clave'])) {
     $usuario = $_POST['usuario'];
@@ -21,4 +19,4 @@ $resultado = mysqli_query($conexion, $sql);
 
 
 mysqli_close($conexion);
-header("Location: ./index.php");
+header("Location: ./login.php");

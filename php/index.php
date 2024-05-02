@@ -15,133 +15,144 @@ include('config.php');
     <link rel="stylesheet" href="../css/reset-css.css" type="text/css">
     <link rel="stylesheet" href="../css/index.css" type="text/css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="../JavaScript/cookies.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
 
-    <div id="cookies">
-        <div class="container-cookies">
-            <div class="subcontainer-cookies">
-                <div class="cookies">
-                    <p>This website uses cookies to ensure you get the best experience on our website. <a href="">Más información</a></p>
-                    <button id="cookies-btn">Aceptar</button>
-                </div>
+
+    <div class="wrapper">
+        <header><i class="bx bx-cookie"></i>
+            <h2>Consentimiento de cookies</h2>
+        </header>
+
+        <div class="data">
+            <p>Esta página web utiliza cookies para garantizar que tengas la mejor experiencia en nuestra página web.<a href="#"> Leer más...</a></p>
+
+            <div class="buttons">
+                <button class="button" id="acceptBtn">Aceptar</button>
+                <button class="button">Denegar</button>
             </div>
         </div>
     </div>
 
-    <div class="image">
-        <section class="background-image1">
-            <div class="fakeHeader">
-                <div class="LogoDiv">
-                    <a href="index.php"><img src="../img/LOGO CAFE COPAS TRANSPARENTE.png" alt="Logo del bar 41100-Café&Copas"></a>
-                </div>
 
-                <div class="anchors">
-                    <?php
-                    if (isset($_SESSION['usuario'])) {
-                        echo '<a href="./salir.php" class= "btn-salir">Salir de la sesión</a>';
-                    } else {
-                        echo '<a href="./login.php">Inicia sesión</a>';
-                    }
-
-                    ?>
-
-                    <a href="./carta.php">Carta</a>
-                    <a href="#footer">Contacto</a>
-                    <a href="./trabajaConNosotros.php">Trabaja con nosotros</a>
-                </div>
+    <section class="background-image1">
+        <div class="fakeHeader">
+            <div class="LogoDiv">
+                <a href="index.php"><img src="../img/LOGO CAFE COPAS TRANSPARENTE.png" alt="Logo del bar 41100-Café&Copas"></a>
             </div>
 
-            <div class="content">
-                <h2>¿Todavía no tienes una mesa reservada?</h2>
-                <a href="./calendarioReservas.php"><button>Reservar</button></a>
+            <div class="anchors">
+                <?php
+                if (isset($_SESSION['usuario'])) {
+                    echo '<a href="./salir.php" class= "btn-salir">Salir de la sesión</a>';
+                } else {
+                    echo '<a href="./login.php">Inicia sesión</a>';
+                }
+
+                ?>
+
+                <a href="./carta.php">Carta</a>
+                <a href="#footer">Contacto</a>
+                <a href="./trabajaConNosotros.php">Trabaja con nosotros</a>
             </div>
+        </div>
 
-            <div class="slider-box">
-                <ul>
-                    <li>
-                        <img src="../img/29.jpg" alt="">
+        <div class="content">
+            <h2>¿Todavía no tienes una mesa reservada?</h2>
+            <a href="./calendarioReservas.php"><button>Reservar</button></a>
+        </div>
 
-                    </li>
+        <div class="izq-image">
+            <img src="../img/8.png" alt="">
+        </div>
 
+        <div class="slider-box">
+            <ul>
+                <li>
+                    <img src="../img/29.jpg" alt="">
 
-                    <li>
-                        <img src="../img/31.jpg" alt="">
-
-                    </li>
-
-                    <li>
-                        <img src="../img/32.jpg" alt="">
-
-                    </li>
-
-                    <li>
-                        <img src="../img/33.jpg" alt="">
-
-                    </li>
-
-                    <li>
-                        <img src="../img/34.jpg" alt="">
-
-                    </li>
-
-                    <li>
-                        <img src="../img/35.jpg" alt="">
-
-                    </li>
-
-                    <li>
-                        <img src="../img/36.jpg" alt="">
-
-                    </li>
-
-                    <li>
-                        <img src="../img/37.jpg" alt="">
-
-                    </li>
-
-                    <li>
-                        <img src="../img/38.jpg" alt="">
-
-                    </li>
-
-                    <li>
-                        <img src="../img/39.jpg" alt="">
-
-                    </li>
-
-                </ul>
-            </div>
-
-        </section>
-    </div>
-
-    <div class="image">
-        <section class="background-image2">
-            <div class="content-nosotros">
-                <h1>Sobre Nosotros</h1>
-                <p>¿Quieres saber qué nos hace especiales?</p>
-                <p>Descubre nuestra historia, nuestra misión y los valores que nos guían.</p>
-                <a href="../php/conocenos.php" class="boton-conocenos">¡Conócenos!</a>
-            </div>
-        </section>
-    </div>
+                </li>
 
 
-    <div class="image">
-        <section class="background-image3">
-            <div class="content-Galeria">
-                <h1>GALERÍA</h1>
-                <p>
-                    Las fotos son un soplo de aire fresco lo que fue y lo que pronto será. En 41100-Café & Copas nos gusta mirarlas y recordar las ganas que tenemos de volver a veros y disfrutar como siempre.
-                    Revive las mejores noches de 41100-Café & Copas a través de nuestra galería de fotos.
-                </p>
-                <a href="./galeria.php"><button>Ver fotos</button></a>
-            </div>
-        </section>
-    </div>
+                <li>
+                    <img src="../img/31.jpg" alt="">
+
+                </li>
+
+                <li>
+                    <img src="../img/32.jpg" alt="">
+
+                </li>
+
+                <li>
+                    <img src="../img/33.jpg" alt="">
+
+                </li>
+
+                <li>
+                    <img src="../img/34.jpg" alt="">
+
+                </li>
+
+                <li>
+                    <img src="../img/35.jpg" alt="">
+
+                </li>
+
+                <li>
+                    <img src="../img/36.jpg" alt="">
+
+                </li>
+
+                <li>
+                    <img src="../img/37.jpg" alt="">
+
+                </li>
+
+                <li>
+                    <img src="../img/38.jpg" alt="">
+
+                </li>
+
+                <li>
+                    <img src="../img/39.jpg" alt="">
+
+                </li>
+
+            </ul>
+        </div>
+        <div class="der-image">
+            <img src="../img/23.png" alt="">
+        </div>
+    </section>
+
+
+
+    <section class="background-image2">
+        <div class="content-nosotros">
+            <h1>Sobre Nosotros</h1>
+            <p>¿Quieres saber qué nos hace especiales?</p>
+            <p>Descubre nuestra historia, nuestra misión y los valores que nos guían.</p>
+            <a href="../php/conocenos.php" class="boton-conocenos">¡Conócenos!</a>
+        </div>
+    </section>
+
+
+
+
+    <section class="background-image3">
+        <div class="content-Galeria">
+            <h1>GALERÍA</h1>
+            <p>
+                Las fotos son un soplo de aire fresco lo que fue y lo que pronto será. En 41100-Café & Copas nos gusta mirarlas y recordar las ganas que tenemos de volver a veros y disfrutar como siempre.
+                Revive las mejores noches de 41100-Café & Copas a través de nuestra galería de fotos.
+            </p>
+            <a href="./galeria.php"><button>Ver fotos</button></a>
+        </div>
+    </section>
+
 
 
 
@@ -164,9 +175,8 @@ include('config.php');
         <div class="mapa" id="mapa"></div>
     </footer>
 
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
+    <script src="../JavaScript/cookies.js" defer></script>
 
     <script>
         var mapa = L.map('mapa').setView([37.28098, -6.05019], 20);

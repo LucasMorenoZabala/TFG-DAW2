@@ -1,7 +1,24 @@
 <?php
+
 $controla = false;
 include('lib.php');
 include('config.php');
+
+$conexion = conectarse($servidor, $usuarioservidor, $claveservidor, $bbdd, $puerto);
+
+if (!empty($_FILES['file'])) {
+    $destino = '../CVs/';
+    $nombreArchivo = basename($_FILES['file']['name']);
+    $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+    $nombreSinExtension = pathinfo($nombreArchivo, PATHINFO_FILENAME);
+
+    if (file_exists($destino . $nombreArchivo)) {
+        $nombreArchivo = $nombreSinExtension . '_' . time() . '.' . $extension;
+    }
+
+    move_uploaded_file($_FILES['file']['tmp_name'], $destino . $nombreArchivo);
+}
+
 
 ?>
 
@@ -39,12 +56,16 @@ include('config.php');
             </header>
 
             <section class="contact-form">
-                <form action="" method="POST">
+                <form action="" method="POST" id="formulario" name="formulario" enctype="multipart/form-data">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required>
+                    <input type="text" id="nombre" name="nombre" required <?php if (isset($_SESSION['usuario'])) {
+                                                                                echo 'value= "' . $_SESSION['usuario'] . '" readonly';
+                                                                            } ?>>
 
                     <label for="email">Correo electrónico:</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" required <?php if (isset($_SESSION['usuario'])) {
+                                                                                echo 'value= "' . $_SESSION['email'] . '" readonly';
+                                                                            } ?>>
 
                     <label for="file">Currículum Vitae: </label>
                     <input type="file" id="file" name="file" required>
@@ -53,9 +74,9 @@ include('config.php');
                 </form>
             </section>
         </div>
-
-
     </div>
+
+
 </body>
 
 </html>
