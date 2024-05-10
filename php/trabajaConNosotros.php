@@ -27,6 +27,7 @@ if (!empty($_FILES['file'])) {
 <head>
     <title>Contacto - 41100-Café&Copas</title>
     <link rel="stylesheet" href="../css/trabajaConNosotros.css" type="text/css">
+    <script src="../JavaScript/menuHamburguesa.js" defer></script>
 </head>
 
 <body>
@@ -36,7 +37,7 @@ if (!empty($_FILES['file'])) {
                 <a href="index.php"><img src="../img/LOGO CAFE COPAS TRANSPARENTE.png" alt="Logo del bar 41100-Café&Copas"></a>
             </div>
 
-            <div class="anchors">
+            <nav>
                 <?php
                 if (isset($_SESSION['usuario'])) {
                     echo '<a href="./salir.php" class= "btn-salir">Salir de la sesión</a>';
@@ -44,9 +45,27 @@ if (!empty($_FILES['file'])) {
                     echo '<a href="./login.php">Inicia sesión</a>';
                 }
                 ?>
+
                 <a href="./carta.php">Carta</a>
                 <a href="./index.php#footer">Contacto</a>
                 <a href="./trabajaConNosotros.php">Trabaja con nosotros</a>
+            </nav>
+
+            <div class="menuWrapper">
+                <img src="../img/menu.png" alt="hamburguer menu" style="width: 40px;" class="burgerMenu">
+                <div class="menuNav">
+                    <?php
+                    if (isset($_SESSION['usuario'])) {
+                        echo '<a href="./salir.php" class= "btn-salir">Salir de la sesión</a>';
+                    } else {
+                        echo '<a href="./login.php">Inicia sesión</a>';
+                    }
+                    ?>
+
+                    <a href="./carta.php">Carta</a>
+                    <a href="./index.php#footer">Contacto</a>
+                    <a href="./trabajaConNosotros.php">Trabaja con nosotros</a>
+                </div>
             </div>
         </div>
 
@@ -76,7 +95,7 @@ if (!empty($_FILES['file'])) {
         </div>
     </div>
 
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 
 </html>

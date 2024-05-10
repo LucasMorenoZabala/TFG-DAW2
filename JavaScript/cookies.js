@@ -1,21 +1,21 @@
-document.addEventListener("DOMContentLoaded", function () {
-  var cookieBox = document.querySelector(".wrapper"),
-    buttons = document.querySelectorAll(".button");
+const cookieBox = document.querySelector(".wrapper"),
+  buttons = document.querySelectorAll(".button");
 
-  var executeCodes = () => {
-    if (document.cookie.includes("cookie")) return;
+const executeCodes = () => {
+  if (document.cookie.includes("cookie")) return;
+  cookieBox.classList.add("show");
+  cookieBox.style.display = "block";
 
-    cookieBox.classList.add("show");
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      cookieBox.classList.remove("show");
+      cookieBox.style.display = "none";
 
-    buttons.forEach(function (button) {
-      button.addEventListener("click", function () {
-        cookieBox.classList.remove("show");
-
-        if (button.id == "acceptBtn") {
-          document.cookie = "cookie=cookie; max-age=" + 60 * 60 * 24 * 30;
-        }
-      });
+      if (button.id == "acceptBtn") {
+        document.cookie = "cookie= cookie; max-age=" + 60 * 60 * 24 * 30;
+      }
     });
-  };
-  window.addEventListener("load", executeCodes);
-});
+  });
+};
+
+window.addEventListener("load", executeCodes);

@@ -16,25 +16,29 @@ include('config.php');
     <link rel="stylesheet" href="../css/index.css" type="text/css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="../JavaScript/cookies.js" defer></script>
+    <script src="../JavaScript/menuHamburguesa.js" defer></script>
 </head>
 
 <body>
 
 
     <div class="wrapper">
-        <header><i class="bx bx-cookie"></i>
-            <h2>Consentimiento de cookies</h2>
+        <header>
+            <i class="bx bx-cookie"></i>
+            <h2>Consentimiento de las cookies</h2>
         </header>
 
         <div class="data">
-            <p>Esta página web utiliza cookies para garantizar que tengas la mejor experiencia en nuestra página web.<a href="#"> Leer más...</a></p>
+            <p>Este sitio web utiliza cookies para ayudarte a tener una experiencia de navegación superior y más relevante en el sitio web. <a href="#">Leer más...</a> </p>
+        </div>
 
-            <div class="buttons">
-                <button class="button" id="acceptBtn">Aceptar</button>
-                <button class="button">Denegar</button>
-            </div>
+        <div class="buttons">
+            <button class="button" id="acceptBtn">Aceptar</button>
+            <button class="button">Declinar</button>
         </div>
     </div>
+
 
 
     <section class="background-image1">
@@ -43,19 +47,35 @@ include('config.php');
                 <a href="index.php"><img src="../img/LOGO CAFE COPAS TRANSPARENTE.png" alt="Logo del bar 41100-Café&Copas"></a>
             </div>
 
-            <div class="anchors">
+            <nav>
                 <?php
                 if (isset($_SESSION['usuario'])) {
                     echo '<a href="./salir.php" class= "btn-salir">Salir de la sesión</a>';
                 } else {
                     echo '<a href="./login.php">Inicia sesión</a>';
                 }
-
                 ?>
 
                 <a href="./carta.php">Carta</a>
-                <a href="#footer">Contacto</a>
+                <a href="./index.php#footer">Contacto</a>
                 <a href="./trabajaConNosotros.php">Trabaja con nosotros</a>
+            </nav>
+
+            <div class="menuWrapper">
+                <img src="../img/menu.png" alt="hamburguer menu" style="width: 40px;" class="burgerMenu">
+                <div class="menuNav">
+                    <?php
+                    if (isset($_SESSION['usuario'])) {
+                        echo '<a href="./salir.php" class= "btn-salir">Salir de la sesión</a>';
+                    } else {
+                        echo '<a href="./login.php">Inicia sesión</a>';
+                    }
+                    ?>
+
+                    <a href="./carta.php">Carta</a>
+                    <a href="#footer">Contacto</a>
+                    <a href="./trabajaConNosotros.php">Trabaja con nosotros</a>
+                </div>
             </div>
         </div>
 
@@ -128,8 +148,6 @@ include('config.php');
         </div>
     </section>
 
-
-
     <section class="background-image2">
         <div class="content-nosotros">
             <h1>Sobre Nosotros</h1>
@@ -138,8 +156,6 @@ include('config.php');
             <a href="../php/conocenos.php" class="boton-conocenos">¡Conócenos!</a>
         </div>
     </section>
-
-
 
 
     <section class="background-image3">
@@ -152,9 +168,6 @@ include('config.php');
             <a href="./galeria.php"><button>Ver fotos</button></a>
         </div>
     </section>
-
-
-
 
 
     <footer id="footer">
@@ -176,7 +189,7 @@ include('config.php');
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="../JavaScript/cookies.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         var mapa = L.map('mapa').setView([37.28098, -6.05019], 20);

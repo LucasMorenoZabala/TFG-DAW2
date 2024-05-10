@@ -46,7 +46,7 @@ function calendario($month, $year, $conexion, $reservado)
     }
 
 
-    if (isset($_GET['idreserva'])) {
+    if (isset($_GET['idreserva']) && isset($_GET['action']) && $_GET['action'] === "borrar") {
         $idreserva = $_GET['idreserva'];
 
         $borrar = $conexion->prepare('DELETE FROM reservas WHERE idreserva = ?');
@@ -61,15 +61,11 @@ function calendario($month, $year, $conexion, $reservado)
         $borrar->close();
     }
 
-    if (isset($_POST['idreserva'], $_POST['nueva_fecha'])) {
-        $idreserva = $_POST['idreserva'];
-        $nuevaFecha = $_POST['nueva_fecha'];
 
-        modificarReserva($idreserva, $nuevaFecha, $conexion);
-    }
+    if (isset($_GET['action']) && $_GET['action'] === "modificar") {
+        $idreserva = $_GET['idreserva'];
+        $nuevaFecha = $_GET['nueva_fecha'];
 
-    function modificarReserva($idreserva, $nuevaFecha, $conexion)
-    {
         $modificar = $conexion->prepare('UPDATE reservas SET fecha = ? WHERE idreserva = ?');
         $modificar->bind_param('si', $nuevaFecha, $idreserva);
         $resultado = $modificar->execute();
@@ -80,6 +76,8 @@ function calendario($month, $year, $conexion, $reservado)
             echo "Ha habido un problema al cambiar la fecha.";
         }
         $modificar->close();
+        return "Se ha reservado correctamente";
+        die();
     }
 
 
@@ -184,7 +182,7 @@ function calendario($month, $year, $conexion, $reservado)
     <meta charset="UTF-8">
     <title>Calendario de reservas - 41100-Café&Copas</title>
     <link rel="stylesheet" href="../css/reservar.css" type="text/css">
-
+    <script src="../JavaScript/menuHamburguesa.js" defer></script>
     <style>
         .table {
             table-layout: fixed;
@@ -316,6 +314,100 @@ function calendario($month, $year, $conexion, $reservado)
             box-sizing: border-box;
             font-size: 16px;
         }
+
+        @media (max-width: 2000px) {
+            nav {
+                display: block;
+            }
+
+            .menuWrapper {
+                display: none;
+            }
+
+            nav {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            nav a {
+                color: #89CFF0;
+                font-family: 'Playfair', serif;
+                padding: 10px 25px;
+                margin: 10px;
+                border: 1px solid #89CFF0;
+                text-decoration: none;
+                border-radius: 5px 5px 20px 5px;
+            }
+
+            nav a:hover {
+                font-weight: bold;
+                background-color: #0C2C4E;
+                transition-duration: 1s;
+            }
+
+        }
+
+        @media (max-width: 900px) {
+            nav {
+                display: none;
+            }
+
+            .menuWrapper {
+                display: block;
+            }
+
+            .menuNav {
+                display: none;
+                position: absolute;
+                z-index: 1000;
+                flex-direction: column;
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                border-radius: 5px;
+            }
+
+            .burgerButton,
+            .menuNav a {
+                color: #89CFF0;
+                font-family: 'Playfair', serif;
+                padding: 10px 25px;
+                margin: 10px 0;
+                border: 1px solid #89CFF0;
+                text-decoration: none;
+                border-radius: 5px 5px 20px 5px;
+            }
+
+            .burgerButton:hover,
+            .menuNav a:hover {
+                font-weight: bold;
+                background-color: #0C2C4E;
+                transition-duration: 1s;
+            }
+
+            .burgerMenu {
+                margin-top: 40px;
+                margin-right: 50px;
+            }
+        }
+
+
+        @media (max-width: 700px) {
+
+            .burgerButton {
+                padding: 12px 20px;
+                border: 1px solid #9BB8CD;
+                background-color: #9BB8CD;
+                border-radius: 15px 5px;
+            }
+
+            .burgerButton:hover {
+                background-color: #C5D8E5;
+                color: rgb(60, 60, 60);
+                transition-duration: 300ms;
+            }
+        }
     </style>
 </head>
 
@@ -329,18 +421,35 @@ function calendario($month, $year, $conexion, $reservado)
             <a href="index.php"><img src="../img/LOGO CAFE COPAS TRANSPARENTE.png" alt="Logo del bar 41100-Café&Copas"></a>
         </div>
 
-        <div class="anchors">
+        <nav>
             <?php
             if (isset($_SESSION['usuario'])) {
                 echo '<a href="./salir.php" class= "btn-salir">Salir de la sesión</a>';
             } else {
                 echo '<a href="./login.php">Inicia sesión</a>';
             }
-
             ?>
+
             <a href="./carta.php">Carta</a>
             <a href="./index.php#footer">Contacto</a>
             <a href="./trabajaConNosotros.php">Trabaja con nosotros</a>
+        </nav>
+
+        <div class="menuWrapper">
+            <img src="../img/menu.png" alt="hamburguer menu" style="width: 40px;" class="burgerMenu">
+            <div class="menuNav">
+                <?php
+                if (isset($_SESSION['usuario'])) {
+                    echo '<a href="./salir.php" class= "btn-salir">Salir de la sesión</a>';
+                } else {
+                    echo '<a href="./login.php">Inicia sesión</a>';
+                }
+                ?>
+
+                <a href="./carta.php">Carta</a>
+                <a href="./index.php#footer">Contacto</a>
+                <a href="./trabajaConNosotros.php">Trabaja con nosotros</a>
+            </div>
         </div>
     </div>
     <div class="container">
@@ -381,7 +490,7 @@ function calendario($month, $year, $conexion, $reservado)
         $resultado2 = $stmt->get_result();
 
         while ($reg = $resultado2->fetch_assoc()) {
-            echo "<li>" . $reg['nombre'] . " con email " . $reg['email'] . ", ha reservado el " . $reg['fecha'] . " ";
+            echo "<li>" . $reg['nombre'] . " con email " . $reg['email'] . ", ha reservado el " . $reg['fecha'] . " y ha reservado el reservado " . $reg['id_reservado'] . " ";
 
 
             echo "<button class='btn btn-modificar' onclick='modificar(" . $reg['idreserva'] . ")'>Modificar reserva</button>";
@@ -411,7 +520,7 @@ function calendario($month, $year, $conexion, $reservado)
     <script>
         function borrar(idreserva) {
             if (confirm("¿Estás seguro de querer borrar esta reserva?")) {
-                fetch('<?php echo $_SERVER['PHP_SELF'] ?>?idreserva=' + idreserva, {
+                fetch('<?php echo $_SERVER['PHP_SELF'] ?>?idreserva=' + idreserva + "&action=borrar", {
                         method: "GET"
                     })
                     .then(Response => {
@@ -434,32 +543,32 @@ function calendario($month, $year, $conexion, $reservado)
     <script>
         function modificar(idreserva) {
             var nuevaFecha = prompt("Meta la nueva fecha de reserva (AAAA-MM-DD)");
+            var hoy = new Date().toISOString().slice(0, 10);
             if (nuevaFecha !== null) {
-                fetch('<?php echo $_SERVER['PHP_SELF'] ?>', {
-                        method: 'POST',
-                        headers: {
-                            'Content-type': 'application/x-www-form-urlencoded'
-                        },
-                        body: 'idreserva=' + idreserva + '&nueva_fecha=' + nuevaFecha
-                    })
-                    .then(Response => {
-                        if (!Response.ok) {
-                            throw new Error('Ha habido un error al modificar la reserva.');
-                        }
-                        return Response.text();
-                    })
-                    .then(data => {
-                        alert(data); // Esto muestra el mensaje de éxito o error
-                        location.reload();
-                    })
-                    .catch(error => {
-                        console.log('Error: ', error);
-                        alert('Ha habido un problema modificando la reserva.');
-                    });
+                if (nuevaFecha >= hoy) {
+                    fetch('<?php echo $_SERVER['PHP_SELF'] ?>?idreserva=' + idreserva + '&nueva_fecha=' + nuevaFecha + "&action=modificar", {
+                            method: 'GET',
+                        })
+                        .then(Response => {
+                            if (!Response.ok) {
+                                throw new Error('Ha habido un error al modificar la reserva.');
+                            }
+                            return Response.text();
+                        })
+                        .then(data => {
+                            location.reload();
+                        })
+                        .catch(error => {
+                            console.log('Error: ', error);
+                            alert('Ha habido un problema modificando la reserva.');
+                        });
+                } else {
+                    alert("La fecha modificada no puede ser anterior al día actual.")
+                }
+
             }
         }
     </script>
-
 </body>
 
 </html>

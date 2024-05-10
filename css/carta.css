@@ -27,13 +27,13 @@ html{
     height: 80px;
 }
 
-.anchors{
+nav{
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.anchors a{
+nav a{
     color: #89CFF0;
     font-family: 'Playfair', serif;
     padding: 10px 25px;
@@ -43,7 +43,7 @@ html{
     border-radius: 5px 5px 20px 5px;
 }
 
-.anchors a:hover {
+nav a:hover {
     font-weight: bold; 
     background-color: #0C2C4E;
     transition-duration:1s ;
@@ -189,4 +189,99 @@ html{
     margin-top: 20px;
     font-size: 18px;
     color: #888;
+}
+
+
+
+@media (max-width: 2000px) {
+    nav{
+        display: block;
+    }
+    
+    .menuWrapper {
+        display: none;
+    }  
+    nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    nav a {
+        color: #89CFF0;
+        font-family: 'Playfair', serif;
+        padding: 10px 25px;
+        margin: 10px;
+        border: 1px solid #89CFF0;
+        text-decoration: none;
+        border-radius: 5px 5px 20px 5px;
+    }
+    
+    nav a:hover {
+        font-weight: bold;
+        background-color: #0C2C4E;
+        transition-duration: 1s;
+    }
+  
+}
+
+@media (max-width: 900px) {
+    nav{
+        display: none;
+    }
+    
+    .menuWrapper {
+        display: block;
+    }  
+
+    .menuNav {
+        display: none;
+        position: absolute;
+        z-index: 1000;
+        flex-direction: column; 
+        background-color: #fff; 
+        padding: 20px; 
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        border-radius: 5px; 
+    }
+
+    .burgerButton,
+    .menuNav a {
+        color: #89CFF0;
+        font-family: 'Playfair', serif;
+        padding: 10px 25px;
+        margin: 10px 0;
+        border: 1px solid #89CFF0;
+        text-decoration: none;
+        border-radius: 5px 5px 20px 5px;
+    }
+
+    .burgerButton:hover,
+    .menuNav a:hover {
+        font-weight: bold;
+        background-color: #0C2C4E;
+        transition-duration: 1s;
+    }
+
+    .burgerMenu{
+        margin-top: 40px;
+        margin-right: 50px;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .burgerButton{
+        padding: 12px 20px;
+        border: 1px solid #9BB8CD;
+        background-color: #9BB8CD;
+        border-radius: 15px 5px;
+    }
+
+    .burgerButton:hover{
+    background-color: #C5D8E5;
+    color: rgb(60, 60, 60);
+    transition-duration: 300ms;
+    }
 }
