@@ -3,6 +3,13 @@ $controla = false;
 include('lib.php');
 include('config.php');
 
+$conexion = conectarse($servidor, $usuarioservidor, $claveservidor, $bbdd, $puerto);
+
+$sql = $conexion->prepare('select * from slider');
+if ($sql->execute()) {
+    $resultado = $sql->get_result();
+}
+$sql->close();
 
 
 ?>
@@ -18,6 +25,7 @@ include('config.php');
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="../JavaScript/cookies.js" defer></script>
     <script src="../JavaScript/menuHamburguesa.js" defer></script>
+    <script src="../JavaScript/carousel.js" defer></script>
 </head>
 
 <body>
@@ -88,60 +96,44 @@ include('config.php');
             <img src="../img/8.png" alt="">
         </div>
 
-        <div class="slider-box">
-            <ul>
-                <li>
-                    <img src="../img/29.jpg" alt="">
+        <div class="container-carousel">
+            <div class="carouseles desktop" id="slider">
+                <?php
+                if ($resultado->num_rows > 0) {
+                    while ($filas = $resultado->fetch_assoc()) {
+                        if ($filas['vistaDesktop'] == 1) {
+                            echo "<section class='slider-section'>
+                            <img src = " . $filas['ruta'] . ">
+                            </section>";
+                        }
+                    }
+                }
+                ?>
+            </div>
+            <div class="btn-left">
+                <i class='bx bxs-left-arrow'></i>
+            </div>
 
-                </li>
+            <div class="btn-right">
+                <i class='bx bxs-right-arrow'></i>
+            </div>
 
-
-                <li>
-                    <img src="../img/31.jpg" alt="">
-
-                </li>
-
-                <li>
-                    <img src="../img/32.jpg" alt="">
-
-                </li>
-
-                <li>
-                    <img src="../img/33.jpg" alt="">
-
-                </li>
-
-                <li>
-                    <img src="../img/34.jpg" alt="">
-
-                </li>
-
-                <li>
-                    <img src="../img/35.jpg" alt="">
-
-                </li>
-
-                <li>
-                    <img src="../img/36.jpg" alt="">
-
-                </li>
-
-                <li>
-                    <img src="../img/37.jpg" alt="">
-
-                </li>
-
-                <li>
-                    <img src="../img/38.jpg" alt="">
-
-                </li>
-
-                <li>
-                    <img src="../img/39.jpg" alt="">
-
-                </li>
-
-            </ul>
+            <div class="carouseles mobile" id="slider1">
+                <?php
+                $resultado->data_seek(0);
+                if ($resultado->num_rows > 0) {
+                    while ($filas = $resultado->fetch_assoc()) {
+                        echo "<section class='slider-section1'>
+                                                <img src = " . $filas['ruta'] . ">
+                                                </section>";
+                    }
+                }
+                ?>
+            </div>
+            <div class="btn-leftMobile">
+                <i class='bx bxs-left-arrow'></i>
+            </div>
+            <div class="btn-rightMobile"><i class='bx bxs-right-arrow'></i></div>
         </div>
         <div class="der-image">
             <img src="../img/23.png" alt="">

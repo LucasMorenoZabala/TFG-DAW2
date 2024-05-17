@@ -120,6 +120,8 @@ html{
     border-radius: 5px;
 }
 
+/*Media query del menu hamburguesa*/
+
 @media (max-width: 2000px) {
     nav{
         display: block;
@@ -147,7 +149,7 @@ html{
     nav a:hover {
         font-weight: bold;
         background-color: #0C2C4E;
-        transition-duration: 1s;
+        transition-duration: 0.4s;
     }
   
 }
@@ -165,29 +167,30 @@ html{
         display: none;
         position: absolute;
         z-index: 1000;
-        flex-direction: column; 
-        background-color: #fff; 
-        padding: 20px; 
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-        border-radius: 5px; 
     }
 
     .burgerButton,
     .menuNav a {
-        color: #89CFF0;
-        font-family: 'Playfair', serif;
-        padding: 10px 25px;
-        margin: 10px 0;
+        display: block;
+        padding: 12px 20px;
         border: 1px solid #89CFF0;
+        background-color: #89CFF0;
+        border-radius: 15px 5px;
+        margin-top: 5px;
+        margin-left: -100px;
+        text-align: center;
+        z-index: 1000;
         text-decoration: none;
-        border-radius: 5px 5px 20px 5px;
+        color: #0C2C4E;
+        font-family: 'Playfair', serif;
     }
 
     .burgerButton:hover,
     .menuNav a:hover {
         font-weight: bold;
         background-color: #0C2C4E;
-        transition-duration: 1s;
+        transition-duration: 0.4s;
+        color: #89CFF0;
     }
 
     .burgerMenu{

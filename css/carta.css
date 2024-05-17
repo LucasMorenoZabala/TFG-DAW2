@@ -172,17 +172,20 @@ nav a:hover {
 
 .resultado {
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 250px;
+    margin-bottom: 20px;
 }
 
 .resultado img {
     width: 100%;
     height: auto;
     display: block;
+    border-radius: 10px 10px 0 0;
 }
+
 
 
 .container p {
@@ -191,7 +194,7 @@ nav a:hover {
     color: #888;
 }
 
-
+/*Media query del menu hamburguesa*/
 
 @media (max-width: 2000px) {
     nav{
@@ -220,7 +223,7 @@ nav a:hover {
     nav a:hover {
         font-weight: bold;
         background-color: #0C2C4E;
-        transition-duration: 1s;
+        transition-duration: 0.4s;
     }
   
 }
@@ -238,29 +241,30 @@ nav a:hover {
         display: none;
         position: absolute;
         z-index: 1000;
-        flex-direction: column; 
-        background-color: #fff; 
-        padding: 20px; 
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-        border-radius: 5px; 
     }
 
     .burgerButton,
     .menuNav a {
-        color: #89CFF0;
-        font-family: 'Playfair', serif;
-        padding: 10px 25px;
-        margin: 10px 0;
+        display: block;
+        padding: 12px 20px;
         border: 1px solid #89CFF0;
+        background-color: #89CFF0;
+        border-radius: 15px 5px;
+        margin-top: 5px;
+        margin-left: -100px;
+        text-align: center;
+        z-index: 1000;
         text-decoration: none;
-        border-radius: 5px 5px 20px 5px;
+        color: #0C2C4E;
+        font-family: 'Playfair', serif;
     }
 
     .burgerButton:hover,
     .menuNav a:hover {
         font-weight: bold;
         background-color: #0C2C4E;
-        transition-duration: 1s;
+        transition-duration: 0.4s;
+        color: #89CFF0;
     }
 
     .burgerMenu{

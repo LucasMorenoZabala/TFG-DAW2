@@ -12,19 +12,46 @@ include('lib.php');
     <title>Inicio de sesión - 41100-Café&Copas</title>
     <link rel="stylesheet" href="../css/login.css" type="text/css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="google-signin-client_id" content="408902054456-rbikmd41tbls42aa2rvra5o9i9pdskql.apps.googleusercontent.com.apps.googleusercontent.com">
+    <script src="../JavaScript/menuHamburguesa.js" defer></script>
 </head>
 
 <body>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <div class="fakeHeader">
         <div class="LogoDiv">
             <a href="index.php"><img src="../img/LOGO CAFE COPAS TRANSPARENTE.png" alt="Logo del bar 41100-Café&Copas"></a>
         </div>
 
-        <div class="anchors">
-            <a href="./login.php">Inicia sesión</a>
+        <nav>
+            <?php
+            if (isset($_SESSION['usuario'])) {
+                echo '<a href="./salir.php" class= "btn-salir">Salir de la sesión</a>';
+            } else {
+                echo '<a href="./login.php">Inicia sesión</a>';
+            }
+            ?>
+
             <a href="./carta.php">Carta</a>
             <a href="./index.php#footer">Contacto</a>
             <a href="./trabajaConNosotros.php">Trabaja con nosotros</a>
+        </nav>
+
+        <div class="menuWrapper">
+            <img src="../img/menu.png" alt="hamburguer menu" style="width: 40px;" class="burgerMenu">
+            <div class="menuNav">
+                <?php
+                if (isset($_SESSION['usuario'])) {
+                    echo '<a href="./salir.php" class= "btn-salir">Salir de la sesión</a>';
+                } else {
+                    echo '<a href="./login.php">Inicia sesión</a>';
+                }
+                ?>
+
+                <a href="./carta.php">Carta</a>
+                <a href="./index.php#footer">Contacto</a>
+                <a href="./trabajaConNosotros.php">Trabaja con nosotros</a>
+            </div>
         </div>
     </div>
 
@@ -36,12 +63,12 @@ include('lib.php');
                     <h2 class="title">Inicia sesión</h2>
                     <div class="input-field">
                         <i class="bx bx-user"></i>
-                        <input type="text" placeholder="Usuario" name="usuario" id="usuario" required>
+                        <input type="text" placeholder="Usuario" name="usuario" id="usuario">
                     </div>
 
                     <div class="input-field">
                         <i class="bx bx-lock-alt"></i>
-                        <input type="password" placeholder="Contraseña" name="clave" id="clave" required>
+                        <input type="password" placeholder="Contraseña" name="clave" id="clave">
                     </div>
                     <input type="hidden" name="idusuario" id="idusuario">
 
@@ -53,9 +80,6 @@ include('lib.php');
 
                     <p class="social-text">O inicia sesión con tus redes sociales</p>
                     <div class="social-media">
-                        <a href="#" class="social-icon">
-                            <i class="bx bxl-google"></i>
-                        </a>
                         <a href="#" class="social-icon">
                             <i class="bx bxl-github"></i>
                         </a>
@@ -99,9 +123,7 @@ include('lib.php');
 
                     <p class="social-text">O registrate con tus redes sociales</p>
                     <div class="social-media">
-                        <a href="#" class="social-icon">
-                            <i class="bx bxl-google"></i>
-                        </a>
+
                         <a href="#" class="social-icon">
                             <i class="bx bxl-github"></i>
                         </a>
@@ -145,6 +167,7 @@ include('lib.php');
     </div>
 
     <script src="../JavaScript/Cambio_IS_RE.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         function validarRegistro() {
@@ -185,6 +208,36 @@ include('lib.php');
             }
         });
     </script>
+
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+
+
+            var signInForm = document.querySelector('.sign-in-form');
+
+
+            var usuarioField = signInForm.querySelector('input[name="usuario"]');
+
+
+            var emailField = signInForm.querySelector('input[name="email"]');
+
+
+            var usuarioValue = usuarioField.value;
+            var emailValue = emailField.value;
+
+
+            if (usuarioValue === "" && emailValue === "") {
+                usuarioField.value = profile.getName();
+                emailField.value = profile.getEmail();
+            }
+
+
+            window.location.href = './index.php';
+            alert("Te has registrado correctamente con Google.");
+        }
+    </script>
+
 </body>
 
 </html>

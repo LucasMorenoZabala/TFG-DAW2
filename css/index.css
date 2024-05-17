@@ -1,4 +1,4 @@
- *{
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -6,7 +6,7 @@
 
 
 html{
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Playfair', sans-serif;
 }
 
 
@@ -47,7 +47,7 @@ nav a {
 nav a:hover {
     font-weight: bold;
     background-color: #0C2C4E;
-    transition-duration: 1s;
+    transition-duration: 0.4s;
 }
 
 .btn-salir{
@@ -66,57 +66,152 @@ nav a:hover {
     background-color: #c82333; 
 }
 
-.slider-box{
-    width: 320px;
+
+.container-carousel{
+    width: 100%;
+    max-width: 320px;
     height: auto;
-    margin: -150px auto 0;
+    background-color: #e0e0e0;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    margin-top: -170px;
+}
+
+.carouseles{
+    width: 1000%;
+    height: auto;
+    display: flex;
     overflow: hidden;
 }
 
-.slider-box ul{
+.slider-section img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.slider-section{
+    width: calc(100% / 10);
+    height: auto;
+    flex-shrink: 0;
+}
+
+.slider-section1{
+    width: calc(100% / 12);
+    height: auto;
+    flex-shrink: 0;
+ 
+}
+
+.slider-section1 img{
+    width: 100%;
+    height: 510px;
+    object-fit: cover;
+}
+
+.btn-left, .btn-right{
     display: flex;
-    padding: 0;
-    width: 1000%;
-    animation: slide 15s infinite alternate ease-in-out;
+    position: absolute;
+    top: 50%;
+    font-size: 1.5rem;
+    background-color: transparent;
+    border-radius: 50%;
+    padding: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #fff;
+    transform: translate(0, -50%);
+    transition: .5s ease;
+    user-select: none;
 }
 
-.slider-box li{
-    width: 100%;
-    list-style: none;
-    position: relative;
+.btn-left:hover, .btn-right:hover{
+    background-color: #333333d4;
+}
+
+.btn-left{
+    left: 7px;
+}
+
+.btn-right{
+    right: 7px;
 }
 
 
-.slider-box img{
-    width: 100%;
+.mobile{
+    display: none;
+    width: 1200%;
+    height: auto;
 }
 
-@keyframes slide{
-    0% {margin-left: 0;}
-    20% {margin-left: 0;}
-
-    25% {margin-left: -100%;}
-    45% {margin-left: -100%;}
-
-    50% {margin-left: -200%;}
-    70% {margin-left: -200%;}
-
-    75% {margin-left: -300%;}
-    100% {margin-left: -300%;}
+.btn-rightMobile, .btn-leftMobile{
+    display: none;
+    position: absolute;
+    top: 50%;
+    font-size: 1.5rem;
+    background-color: transparent;
+    border-radius: 50%;
+    padding: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #fff;
+    transform: translate(0, -50%);
+    transition: .5s ease;
+    user-select: none;
 }
 
-@media(max-width:991px){
+.btn-leftMobile{
+    left: 7px;
+}
+
+.btn-rightMobile{
+    right: 7px;
+}
+
+.btn-leftMobile:hover, .btn-rightMobile:hover{
+    background-color: #333333d4;
+}
+
+/*Media query del slider responsive*/
+@media(max-width:1450px){
+    .desktop{
+        display: none;
+    }
+
+    .mobile{
+        display: flex;
+    }
+
+    .btn-rightMobile, .btn-leftMobile{
+        display: flex;
+    }
+
+
+    .btn-right, .btn-left{
+        display: none;
+    }
+
     body{
         padding: 30px;
     }
 
-    .slider-box{
+    .slider-frame{
         width: 100%;
     }
 
     .texto{
         top: 50%;
         padding: 0;
+    }
+
+    .izq-image{
+        display: none;
+    }
+
+    .der-image{
+        display: none;
     }
 }
 
@@ -446,6 +541,8 @@ header h2{
     background-color: #034bf1;
 }
 
+
+/*Media query del menu hamburguesa*/
 @media (max-width: 2000px) {
     nav{
         display: block;
@@ -473,7 +570,7 @@ header h2{
     nav a:hover {
         font-weight: bold;
         background-color: #0C2C4E;
-        transition-duration: 1s;
+        transition-duration: 0.4s;
     }
   
 }
@@ -491,29 +588,30 @@ header h2{
         display: none;
         position: absolute;
         z-index: 1000;
-        flex-direction: column; 
-        background-color: #fff; 
-        padding: 20px; 
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-        border-radius: 5px; 
     }
 
     .burgerButton,
     .menuNav a {
-        color: #89CFF0;
-        font-family: 'Playfair', serif;
-        padding: 10px 25px;
-        margin: 10px 0;
+        display: block;
+        padding: 12px 20px;
         border: 1px solid #89CFF0;
+        background-color: #89CFF0;
+        border-radius: 15px 5px;
+        margin-top: 5px;
+        margin-left: -100px;
+        text-align: center;
+        z-index: 1000;
         text-decoration: none;
-        border-radius: 5px 5px 20px 5px;
+        color: #0C2C4E;
+        font-family: 'Playfair', serif;
     }
 
     .burgerButton:hover,
     .menuNav a:hover {
         font-weight: bold;
         background-color: #0C2C4E;
-        transition-duration: 1s;
+        transition-duration: 0.4s;
+        color: #89CFF0;
     }
 
     .burgerMenu{
@@ -538,9 +636,3 @@ header h2{
     transition-duration: 300ms;
     }
 }
-
-
-
-
-
-
