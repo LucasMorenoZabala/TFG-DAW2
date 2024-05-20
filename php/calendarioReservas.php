@@ -264,7 +264,7 @@ function calendario($month, $year, $conexion, $reservado)
         $resultado2 = $stmt->get_result();
 
         while ($reg = $resultado2->fetch_assoc()) {
-            echo "<li>" . $reg['nombre'] . " con email " . $reg['email'] . ", ha reservado el " . $reg['fecha'] . " y ha reservado el reservado " . $reg['id_reservado'] . " ";
+            echo "<li>" . $reg['nombre'] . " con email " . $reg['email'] . ", ha reservado el " . $reg['fecha'] . " y ha reservado el reservado " . $reg['id_reservado'] . ". ";
 
 
             echo "<button class='btn btn-modificar' onclick='modificar(" . $reg['idreserva'] . ")'>Modificar reserva</button>";

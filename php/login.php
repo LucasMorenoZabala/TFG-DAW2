@@ -63,7 +63,7 @@ include('lib.php');
                     <h2 class="title">Inicia sesión</h2>
                     <div class="input-field">
                         <i class="bx bx-user"></i>
-                        <input type="text" placeholder="Usuario" name="usuario" id="usuario">
+                        <input type="text" placeholder="Usuario" name="usuario" id="usuario" maxlength="20">
                     </div>
 
                     <div class="input-field">
@@ -74,9 +74,11 @@ include('lib.php');
 
                     <input type="submit" class="btn solid" value="Inicia sesión">
 
-                    <?php if (isset($_GET['error'])) {
-                        echo '<p style="color: red; font-size: 18px;">' . htmlspecialchars($_GET['error']) . '</p>';
-                    } ?>
+                    <?php if (isset($_GET['error'])) : ?>
+                        <div class="error-message">
+                            <?php echo htmlspecialchars($_GET['error']); ?>
+                        </div>
+                    <?php endif; ?>
 
                     <p class="social-text">O inicia sesión con tus redes sociales</p>
                     <div class="social-media">

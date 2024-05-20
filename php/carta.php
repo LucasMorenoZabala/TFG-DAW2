@@ -5,10 +5,6 @@ include('config.php');
 
 
 $conexion = conectarse($servidor, $usuarioservidor, $claveservidor, $bbdd, $puerto);
-
-
-
-
 ?>
 
 <html>

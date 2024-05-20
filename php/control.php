@@ -3,31 +3,40 @@ $controla = false;
 include('config.php');
 include('lib.php');
 
-$hayUsuario = false;
-$usuario = $_POST['usuario'];
-$clave = $_POST['clave'];
+if (isset($_POST['usuario'], $_POST['clave'])) {
+    $usuario = $_POST['usuario'];
+    $clave = $_POST['clave'];
 
-// Crear conexión
-$conexion = conectarse($servidor, $usuarioservidor, $claveservidor, $bbdd, $puerto);
+    $conexion = conectarse($servidor, $usuarioservidor, $claveservidor, $bbdd, $puerto);
 
-// Preparar el string que contendrá la instrucción SQL
-$sql = 'SELECT * FROM usuarios WHERE usuario="' . $usuario . '" AND clave="' . $clave . '";';
+    $sql = $conexion->prepare('SELECT * FROM usuarios WHERE usuario = ?');
+    $sql->bind_param('s', $usuario);
 
-// Enviar la consulta al servidor MySQL a través de la conexión creada, y almacenar resultado en una variable
-$consulta = mysqli_query($conexion, $sql);
+    $sql->execute();
+    $resultado = mysqli_stmt_get_result($sql);
 
-// Verificar si hay algún usuario como resultado
-// Si no hay usuario (consulta vacía), redireccionamos a index.php
-// Si hay usuario (hay registros en la consulta recibida), redireccionamos a portada.php
-$cuantos = mysqli_num_rows($consulta); // Almacenamos en $cuantos la cantidad de filas recogidas en la consulta
-if ($cuantos == 0) {
-    $error = "El usuario no existe o se ha equivocado en alguno de los dos campos.";
-    header('Location: ./login.php?error=' . urlencode($error)); // Al no haber usuario recogido, la identificación no es correcta. Redireccionamos a index.php
+    if (mysqli_num_rows($resultado) == 0) {
+        $error = "El usuario no existe o se ha equivocado en alguno de los campos.";
+        //error que se muestra en el login en caso de que alguno de los dos campos este mal.
+        header('Location: ./login.php?error=' . urlencode($error));
+    } else {
+        $reg = mysqli_fetch_array($resultado);
+
+        // esto verifica la contraseña que ha metido el usuario con la que esta codificada en la bbdd.
+        if (password_verify($clave, $reg['clave'])) {
+            $_SESSION['usuario'] = $usuario;
+            $_SESSION['email'] = $reg['email'];
+            $_SESSION['idusuario'] = $reg['idusuario'];
+            $_SESSION['rol'] = $reg['rol'];
+            header('Location: ./index.php');
+        } else {
+            $error = "Contraseña incorrecta.";
+            header('Location: ./login.php?error=' . urlencode($error));
+        }
+    }
+
+    $sql->close();
 } else {
-    $reg = mysqli_fetch_array($consulta); // Almacenamos en $reg el array con los datos del usuario que están en la consulta
-    $_SESSION['usuario'] = $usuario; // Creamos la variable de sesión 'usuario' para que sea accesible en todas las páginas en las que se inicie sesión.
-    $_SESSION['email'] = $reg['email'];
-    $_SESSION['idusuario'] = $reg['idusuario'];
-    $_SESSION['rol'] = $reg['rol'];
-    header('Location: ./index.php');
+    //error por si no se han enviado correctamente los datos.
+    echo "Faltan datos para el inicio de sesión.";
 }
