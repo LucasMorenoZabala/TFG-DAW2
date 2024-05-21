@@ -1,7 +1,7 @@
 *{
     margin: 0;
     padding: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Space Grotesk", sans-serif;
     background-color: #FFFFF0;
 }
 
@@ -31,7 +31,6 @@ nav{
 
 nav a{
     color: #89CFF0;
-    font-family: 'Playfair', serif;
     padding: 10px 25px;
     margin: 10px;
     border: 1px solid #89CFF0;
@@ -50,7 +49,7 @@ nav a:hover {
     padding: 10px 20px;
     background-color: #dc3545; 
     border: none;
-    border-radius: 4px;
+    border-radius: 5px 5px 20px 5px;
     color: #fff;
     font-size: 16px;
     cursor: pointer;
@@ -60,6 +59,7 @@ nav a:hover {
 .btn-salir:hover {
     background-color: #c82333; 
 }
+
 
 .container-form {
     max-width: 800px;
@@ -71,6 +71,7 @@ header {
     text-align: center;
     margin-bottom: 20px;
 }
+
 
 .contact-form {
     max-width: 600px;
@@ -102,6 +103,7 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 20px;
 }
 
 button:hover {
@@ -134,7 +136,7 @@ button:hover {
 
     nav a {
         color: #89CFF0;
-        font-family: 'Playfair', serif;
+        font-family: "Space Grotesk", sans-serif;
         padding: 10px 25px;
         margin: 10px;
         border: 1px solid #89CFF0;
@@ -178,7 +180,7 @@ button:hover {
         z-index: 1000;
         text-decoration: none;
         color: #0C2C4E;
-        font-family: 'Playfair', serif;
+        font-family: "Space Grotesk", sans-serif;
     }
 
     .burgerButton:hover,

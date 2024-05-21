@@ -1,7 +1,7 @@
 *{
     margin: 0;
     padding: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Playfair Display', sans-serif;
 }
 
 html{
@@ -25,34 +25,35 @@ html{
     height: 80px;
 }
 
-.anchors{
+nav {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.anchors a{
+nav a {
     color: #89CFF0;
-    font-family: 'Playfair', serif;
     padding: 10px 25px;
     margin: 10px;
     border: 1px solid #89CFF0;
     text-decoration: none;
     border-radius: 5px 5px 20px 5px;
+    font-family: "Space Grotesk", sans-serif;
 }
 
-.anchors a:hover {
-    font-weight: bold; 
+nav a:hover {
+    font-weight: bold;
     background-color: #0C2C4E;
-    transition-duration:1s ;
+    transition-duration: 0.4s;
 }
+
 
 .btn-salir{
     display: inline-block;
     padding: 10px 20px;
     background-color: #dc3545; 
     border: none;
-    border-radius: 4px;
+    border-radius: 5px 5px 20px 5px;
     color: #fff;
     font-size: 16px;
     cursor: pointer;
@@ -138,7 +139,7 @@ html{
     
     nav a {
         color: #89CFF0;
-        font-family: 'Playfair', serif;
+        font-family: "Space Grotesk", sans-serif;
         padding: 10px 25px;
         margin: 10px;
         border: 1px solid #89CFF0;
@@ -182,7 +183,7 @@ html{
         z-index: 1000;
         text-decoration: none;
         color: #0C2C4E;
-        font-family: 'Playfair', serif;
+        font-family: "Space Grotesk", sans-serif;
     }
 
     .burgerButton:hover,

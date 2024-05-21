@@ -181,7 +181,10 @@ function calendario($month, $year, $conexion, $reservado)
 <head>
     <meta charset="UTF-8">
     <title>Calendario de reservas - 41100-Café&Copas</title>
-    <link rel="stylesheet" href="../css/reservar.css" type="text/css">
+    <link rel="stylesheet" href="../css/calendarioReservas.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <script src="../JavaScript/menuHamburguesa.js" defer></script>
 </head>
 

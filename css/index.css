@@ -2,13 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Space Grotesk", sans-serif;
 }
-
-
-html{
-    font-family: 'Playfair', sans-serif;
-}
-
 
 .fakeHeader {
     height: 120px;
@@ -36,7 +31,6 @@ nav {
 
 nav a {
     color: #89CFF0;
-    font-family: 'Playfair', serif;
     padding: 10px 25px;
     margin: 10px;
     border: 1px solid #89CFF0;
@@ -248,7 +242,7 @@ section {
     align-items: center;
     flex-direction: column;
     padding-bottom: 100px;
-
+    font-family: "Space Grotesk", sans-serif;
 }
 
 .content h2{
@@ -298,6 +292,7 @@ section {
     text-align: center;
     justify-content: center;
     margin: 200px auto 0; 
+    font-family: "Space Grotesk", sans-serif;
 }
 
 .content-nosotros h1 {
@@ -340,6 +335,7 @@ section {
     border-radius: 10px;
     margin: 200px auto 0; 
     color: #fff;
+    font-family: "Space Grotesk", sans-serif;
 }
 
 .content-Galeria h1 {
@@ -377,6 +373,7 @@ footer {
     margin: 0 auto;
     background: linear-gradient(to right, #A54657, #9BB8CD);
     padding-top: 20px;
+    font-family: "Space Grotesk", sans-serif;
 }
 
 footer img {
@@ -409,6 +406,7 @@ footer h2 {
 .span{
     font-size: 1.7rem;
     animation: cambiarTamaño 2s infinite alternate;
+    font-family: "Space Grotesk", sans-serif;
 }
 
 @keyframes cambiarTamaño{
@@ -559,12 +557,12 @@ header h2{
     
     nav a {
         color: #89CFF0;
-        font-family: 'Playfair', serif;
         padding: 10px 25px;
         margin: 10px;
         border: 1px solid #89CFF0;
         text-decoration: none;
         border-radius: 5px 5px 20px 5px;
+        font-family: "Space Grotesk", sans-serif;
     }
     
     nav a:hover {
@@ -603,7 +601,7 @@ header h2{
         z-index: 1000;
         text-decoration: none;
         color: #0C2C4E;
-        font-family: 'Playfair', serif;
+        font-family: "Space Grotesk", sans-serif;
     }
 
     .burgerButton:hover,

@@ -75,6 +75,9 @@ function anadirFoto($rutaAnadir, $conexion)
     <title>41100-Café&Copas - Galería</title>
     <link rel="stylesheet" href="../css/reset-css.css" type="text/css">
     <link rel="stylesheet" href="../css/galeria.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <script src="../JavaScript/menuHamburguesa.js" defer></script>
 </head>
 

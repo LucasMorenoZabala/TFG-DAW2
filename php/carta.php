@@ -12,6 +12,9 @@ $conexion = conectarse($servidor, $usuarioservidor, $claveservidor, $bbdd, $puer
 <head>
     <title>Carta - 41100-Café-Copas</title>
     <link rel="stylesheet" href="../css/carta.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <script src="../JavaScript/menuHamburguesa.js" defer></script>
 </head>
 

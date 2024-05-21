@@ -12,6 +12,9 @@ include('lib.php');
     <title>Inicio de sesión - 41100-Café&Copas</title>
     <link rel="stylesheet" href="../css/login.css" type="text/css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta name="google-signin-client_id" content="408902054456-rbikmd41tbls42aa2rvra5o9i9pdskql.apps.googleusercontent.com.apps.googleusercontent.com">
     <script src="../JavaScript/menuHamburguesa.js" defer></script>
 </head>
@@ -141,7 +144,6 @@ include('lib.php');
                         </a>
                     </div>
                 </form>
-
             </div>
 
             <div class="panels-container">
@@ -211,34 +213,6 @@ include('lib.php');
         });
     </script>
 
-    <script>
-        function onSignIn(googleUser) {
-            var profile = googleUser.getBasicProfile();
-
-
-            var signInForm = document.querySelector('.sign-in-form');
-
-
-            var usuarioField = signInForm.querySelector('input[name="usuario"]');
-
-
-            var emailField = signInForm.querySelector('input[name="email"]');
-
-
-            var usuarioValue = usuarioField.value;
-            var emailValue = emailField.value;
-
-
-            if (usuarioValue === "" && emailValue === "") {
-                usuarioField.value = profile.getName();
-                emailField.value = profile.getEmail();
-            }
-
-
-            window.location.href = './index.php';
-            alert("Te has registrado correctamente con Google.");
-        }
-    </script>
 
 </body>
 
