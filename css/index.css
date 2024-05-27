@@ -258,7 +258,7 @@ section {
     margin-top: 50px;
     font-size: 18px;
     border: none;
-    border-radius: 5px;
+    border-radius: 5px 5px 20px 5px;
     cursor: pointer;
     background: linear-gradient(to right, #9BB8CD, #fecfef);
     color: #0C2C4E;
@@ -315,7 +315,7 @@ section {
     padding: 15px 30px;
     font-size: 18px;
     border: none;
-    border-radius: 5px;
+    border-radius: 5px 5px 20px 5px;
     cursor: pointer;
     background: linear-gradient(to right, #9BB8CD, #fecfef);
     color: #0C2C4E;
@@ -355,7 +355,7 @@ section {
     padding: 15px 30px;
     font-size: 18px;
     border: none;
-    border-radius: 5px;
+    border-radius: 5px 5px 20px 5px;
     cursor: pointer;
     background: linear-gradient(to right, #9BB8CD, #fecfef);
     color: #0C2C4E;

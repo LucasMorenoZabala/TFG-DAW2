@@ -125,7 +125,7 @@ function calendario($month, $year, $conexion, $reservado)
     $calendar .= "<tr>";
 
 
-
+    //esto muestra la cabecera de los días
     foreach ($daysOfWeek as $day) {
         $calendar .= "<th class = 'header'>$day</th>";
     }
@@ -145,6 +145,7 @@ function calendario($month, $year, $conexion, $reservado)
             $calendar .= "</tr><tr>";
         }
 
+        //esto muestra el día actual y por detrás en rojo y delante de él en verde.
         $currentDayRel = str_pad($currentDay, 2, "0", STR_PAD_LEFT);
         $date = "$year-$month-$currentDayRel";
         $today = $date == date('Y-m-d') ? "today" : "";

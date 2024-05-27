@@ -17,9 +17,9 @@ if (isset($_POST['usuario'], $_POST['email'], $_POST['clave'])) {
     $sql_check->store_result();
 
     if ($sql_check->num_rows > 0) {
-        echo "El nombre de usuario o el correo electrónico ya están registrados.";
+        echo "Ya existe un usuario con este correo o viceversa.";
     } else {
-        //esto encripta la contraseña
+        // Esto encripta la contraseña
         $clave_encriptada = password_hash($clave, PASSWORD_DEFAULT);
 
         $sql = $conexion->prepare('INSERT INTO usuarios (usuario, email, clave) VALUES (?, ?, ?)');
@@ -28,9 +28,8 @@ if (isset($_POST['usuario'], $_POST['email'], $_POST['clave'])) {
 
         $sql->close();
         header("Location: ./login.php");
+        exit();
     }
 
     $conexion->close();
-} else {
-    $mensaje_error_registro = "Faltan datos para el registro.";
 }
