@@ -127,7 +127,6 @@ function anadirFoto($rutaAnadir, $conexion)
         <div class="img-gallery">
             <?php
             $sql = $conexion->prepare('select * from fotos');
-            $fotos = array();
             if ($sql->execute()) {
                 $resultado = $sql->get_result();
             }

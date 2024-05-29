@@ -2,15 +2,19 @@
 $controla = false;
 include('lib.php');
 include('config.php');
+
+
 $conexion = conectarse($servidor, $usuarioservidor, $claveservidor, $bbdd, $puerto);
 
 function calendario($month, $year, $conexion, $reservado)
-
 {
+    // Prepara una declaración SQL para obtener todos los elementos reservados
     $sql = $conexion->prepare('select * from reservados');
     $reservados = "";
     $primer_reservado = 0;
     $i = 0;
+
+    // Ejecuta la consulta y obtiene los resultados
     if ($sql->execute()) {
         $resultado = $sql->get_result();
         if ($resultado->num_rows > 0) {
@@ -18,23 +22,24 @@ function calendario($month, $year, $conexion, $reservado)
                 if ($i == 0) {
                     $primer_reservado = $filas['idreservado'];
                 }
-
                 $reservados .= "<option value=" . $filas['idreservado'] . ">" . $filas['nombre'] . "</option>";
                 $i++;
             }
-
             $sql->close();
         }
     }
 
+    // Establece el primer elemento reservado si no se especifica
     if ($reservado != 0) {
         $primer_reservado = $reservado;
     }
 
-
+    // Prepara una declaración SQL para obtener las reservas del mes y año dados
     $sql = $conexion->prepare('select * from reservas WHERE MONTH(fecha) = ? AND YEAR(fecha) = ? AND id_reservado = ?');
     $sql->bind_param('ssi', $month, $year, $primer_reservado);
     $reservas = array();
+
+    // Ejecuta la consulta y obtiene los resultados
     if ($sql->execute()) {
         $resultado = $sql->get_result();
         if ($resultado->num_rows > 0) {
@@ -45,10 +50,9 @@ function calendario($month, $year, $conexion, $reservado)
         }
     }
 
-
+    // Maneja la eliminación de reservas
     if (isset($_GET['idreserva']) && isset($_GET['action']) && $_GET['action'] === "borrar") {
         $idreserva = $_GET['idreserva'];
-
         $borrar = $conexion->prepare('DELETE FROM reservas WHERE idreserva = ?');
         $borrar->bind_param('i', $idreserva);
 
@@ -61,11 +65,10 @@ function calendario($month, $year, $conexion, $reservado)
         $borrar->close();
     }
 
-
+    // Maneja la modificación de reservas
     if (isset($_GET['action']) && $_GET['action'] === "modificar") {
         $idreserva = $_GET['idreserva'];
         $nuevaFecha = $_GET['nueva_fecha'];
-
         $modificar = $conexion->prepare('UPDATE reservas SET fecha = ? WHERE idreserva = ?');
         $modificar->bind_param('si', $nuevaFecha, $idreserva);
         $resultado = $modificar->execute();
@@ -80,7 +83,21 @@ function calendario($month, $year, $conexion, $reservado)
         die();
     }
 
+    if (isset($_GET['idreserva']) && isset($_GET['action']) && $_GET['action'] === "cancelar") {
+        $idreserva = $_GET['idreserva'];
+        $cancelar = $conexion->prepare('DELETE FROM reservas WHERE idreserva = ?');
+        $cancelar->bind_param('i', $idreserva);
 
+        if ($cancelar->execute()) {
+            header('Location: ' . $_SERVER['PHP_SELF']);
+            exit;
+        } else {
+            echo 'Ha habido un problema al cancelar la reserva';
+        }
+        $cancelar->close();
+    }
+
+    // Define los días de la semana
     $daysOfWeek = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
     $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year);
     $numberDays = date('t', $firstDayOfMonth);
@@ -88,22 +105,20 @@ function calendario($month, $year, $conexion, $reservado)
     $monthName = $dateComponents['month'];
     $dayOfWeek = ($dateComponents['wday'] + 6) % 7;
 
+    // Calcula el mes y año anterior y siguiente
     $prev_month = date('m', mktime(0, 0, 0, $month - 1, 1, $year));
     $prev_year = date('Y', mktime(0, 0, 0, $month - 1, 1, $year));
     $nex_month = date('m', mktime(0, 0, 0, $month + 1, 1, $year));
     $next_year = date('Y', mktime(0, 0, 0, $month + 1, 1, $year));
 
+    // Obtiene la fecha de hoy
     $dateToday = date('Y-m-d');
 
-
+    // Construye el HTML del calendario
     $calendar = "<center><h2 class = 'calendar-header'>$monthName $year</h2>";
-
     $calendar .= "<a class='btn btn-prev' href='?month=" . $prev_month . "&year=" . $prev_year . "'>Mes anterior</a>";
-
     $calendar .= "<a class='btn btn-current' href='?month=" . date('m') . "&year=" . date('Y') . "'>Mes actual</a>";
-
     $calendar .= "<a class='btn btn-next' href='?month=" . $nex_month . "&year=" . $next_year . "'>Mes siguiente</a></center>";
-
     $calendar .= "
     <form id='reservado_select_form'>
         <div class='row'>
@@ -117,15 +132,10 @@ function calendario($month, $year, $conexion, $reservado)
             </div>
         </div>
     </form>
-    
-    
-    
     <table class = 'table'>";
-
     $calendar .= "<tr>";
 
-
-    //esto muestra la cabecera de los días
+    // Muestra los días de la semana
     foreach ($daysOfWeek as $day) {
         $calendar .= "<th class = 'header'>$day</th>";
     }
@@ -145,7 +155,7 @@ function calendario($month, $year, $conexion, $reservado)
             $calendar .= "</tr><tr>";
         }
 
-        //esto muestra el día actual y por detrás en rojo y delante de él en verde.
+        // Muestra el día actual y los botones de reserva
         $currentDayRel = str_pad($currentDay, 2, "0", STR_PAD_LEFT);
         $date = "$year-$month-$currentDayRel";
         $today = $date == date('Y-m-d') ? "today" : "";
@@ -157,12 +167,12 @@ function calendario($month, $year, $conexion, $reservado)
             $calendar .= "<td class ='$today'><h4>$currentDay</h4> <a href= 'reservar2.php?date=" . $date . "&id_reservado=" . $primer_reservado . "' class = 'btn btn-success'>Reservar</a> ";
         }
 
-
         $calendar .= "</td>";
         $currentDay++;
         $dayOfWeek++;
     }
 
+    // Rellena los días restantes de la semana con celdas vacías
     if ($dayOfWeek < 7) {
         $remainingDays = 7 - $dayOfWeek;
         for ($i = 0; $i < $remainingDays; $i++) {
@@ -174,7 +184,6 @@ function calendario($month, $year, $conexion, $reservado)
 
     return $calendar;
 }
-
 ?>
 
 <html>
@@ -285,6 +294,38 @@ function calendario($month, $year, $conexion, $reservado)
     }
     ?>
 
+    <?php
+    if (isset($_SESSION['rol']) && $_SESSION['rol'] == 0) {
+        $controla = false;
+
+
+        $cliente_id = $_SESSION['idusuario'];
+
+
+        $cancelar = $conexion->prepare("SELECT * FROM reservas WHERE idusuario = ?");
+        $cancelar->bind_param("i", $cliente_id);
+        $cancelar->execute();
+
+        echo "<div class='adminReservas'>";
+        echo "<ul>";
+
+        $resultado2 = $cancelar->get_result();
+
+        while ($reg = $resultado2->fetch_assoc()) {
+            echo "<li> Has reservado para la siguiente fecha: " . $reg['fecha'] . " y has reservado la mesa " . $reg['id_reservado'] . ".";
+
+            echo "<button class='btn btn-danger' onclick='cancelar(" . $reg['idreserva'] . ")'>Cancelar reserva</button>";
+
+            echo "</li>";
+        }
+
+        echo "</ul>";
+
+        echo "</div>";
+    }
+    ?>
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
@@ -344,6 +385,29 @@ function calendario($month, $year, $conexion, $reservado)
                     alert("La fecha modificada no puede ser anterior al día actual.")
                 }
 
+            }
+        }
+    </script>
+
+    <script>
+        function cancelar(idreserva) {
+            if (confirm("¿Estás seguro de querer cancelar esta reserva?")) {
+                fetch('<?php echo $_SERVER['PHP_SELF'] ?>?idreserva=' + idreserva + "&action=cancelar", {
+                        method: "GET"
+                    })
+                    .then(Response => {
+                        if (!Response.ok) {
+                            throw new Error('Ha habido un problema al cancelar la reserva.')
+                        }
+                        return Response.text();
+                    })
+                    .then(data => {
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Error: ', error);
+                        alert('Ha habido otro problema al cancelar la reserva.')
+                    });
             }
         }
     </script>

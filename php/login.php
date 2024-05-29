@@ -172,48 +172,6 @@ include('lib.php');
 
     <script src="../JavaScript/Cambio_IS_RE.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-        function validarRegistro() {
-            var formulario = document.getElementById("formularioRegistro");
-            var usuario = formulario.usuario.value;
-            var email = formulario.email.value;
-            var clave = formulario.clave.value;
-            var regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (usuario === "" || email === "" || clave === "") {
-                alert("Por favor, completa todos los campos.");
-                return false;
-            }
-
-            if (!regexEmail.test(email)) {
-                alert("Por favor, introduce un email válido.");
-                return false;
-            }
-
-
-            if (clave.length > 20) {
-                alert("La contraseña debe tener como máximo 20 caracteres.");
-                return false;
-            }
-
-            if (usuario.length > 15) {
-                alert("El nombre de usuario debe tener como máximo 15 caracteres.");
-                return false;
-            }
-
-            return true;
-        }
-
-
-        document.getElementById("formularioRegistro").addEventListener("submit", function(event) {
-            if (!validarRegistro()) {
-                event.preventDefault();
-            }
-        });
-    </script>
-
-
 </body>
 
 </html>
