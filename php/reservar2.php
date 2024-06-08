@@ -7,7 +7,7 @@ $conexion = conectarse($servidor, $usuarioservidor, $claveservidor, $bbdd, $puer
 
 // Verifica si hay una sesión activa
 if (!isset($_SESSION['usuario']) || !isset($_SESSION['email'])) {
-    $msg = "<div class='alert alert-danger'>Necesitas estar registrado para hacer una reserva.</div>";
+    $msg = "<div class='alert alert-danger'>Necesitas estar registrado o tener tu sesión iniciada para hacer una reserva.</div>";
     echo $msg;
     echo "<script>
         setTimeout(function() {
